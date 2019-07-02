@@ -30,10 +30,10 @@ class App extends React.Component {
     let searchTerm = e.target.value.toLowerCase()
     this.setState(prevState => {
       if (searchTerm) {
-        let filteredData = prevState.tasks.filter(x => x.title.toLowerCase().includes(searchTerm))
+        let filteredData = prevState.filteredTasks.filter(x => x.title.toLowerCase().includes(searchTerm))
         return { filteredTasks: filteredData, searchTerm: searchTerm }
       } else {
-        return { filteredTasks: prevState.tasks, searchTerm: searchTerm }
+        return { filteredTasks: prevState.filteredTasks, searchTerm: searchTerm }
       }
     });
   }
