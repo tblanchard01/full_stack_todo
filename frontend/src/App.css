@@ -13,3 +13,8 @@
   padding-bottom: 5px; 
   margin: auto;  
 }
+
+.new-task-button{
+  padding:2px; 
+  background-color: lightgray; 
+}
