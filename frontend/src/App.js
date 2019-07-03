@@ -8,7 +8,6 @@ class App extends React.Component {
     super(props)
     this.state = {
       tasks: [],
-      filteredTasks: [],
       searchTerm: "",
       newNoteTitle: "",
       newNoteDate: ""
@@ -22,53 +21,39 @@ class App extends React.Component {
   componentDidMount() {
     fetch('http://localhost:8000/tasks')
       .then(response => response.json())
-      .then(data => this.setState({ tasks: data, filteredTasks: data }))
+      .then(data => this.setState({ tasks: data }))
   }
   handleSearchTerm(e) {
     let searchTerm = e.target.value.toLowerCase()
-    this.setState(prevState => {
-      if (searchTerm) {
-        let filteredData = prevState.filteredTasks.filter(x => x.title.toLowerCase().includes(searchTerm))
-        return { filteredTasks: filteredData, searchTerm: searchTerm }
-      } else {
-        return { filteredTasks: prevState.filteredTasks, searchTerm: searchTerm }
-      }
-    });
+    this.setState({ searchTerm: searchTerm });
   }
   handleNewTaskTitle(e) {
     let newNoteTitle = e.target.value
-    this.setState(prevState => {
-      if (newNoteTitle) {
-        return { newNoteTitle: newNoteTitle }
-      }
-    });
+    this.setState({ newNoteTitle: newNoteTitle });
   }
   handleNewTaskDate(e) {
     let newNoteDate = e.target.value
-    this.setState(prevState => {
-      if (newNoteDate) {
-        return { newNoteDate: newNoteDate }
-      }
-    });
+    this.setState({ newNoteDate: newNoteDate });
   }
   handleNewTaskAdd() {
-    this.setState(prevState => {
-      if (prevState.newNoteTitle && prevState.newNoteDate) {
+    this.setState(state => {
+      if (state.newNoteTitle && state.newNoteDate) {
         return {
-          filteredTasks: [...prevState.filteredTasks, { title: prevState.newNoteTitle, dueDate: prevState.newNoteDate }]
+          tasks: [...state.tasks, { title: state.newNoteTitle, dueDate: state.newNoteDate }]
         }
       }
     })
   }
   handleDeleteTask(index) {
-    this.setState(prevState => {
-      let filteredData = prevState.filteredTasks.filter((x, i) => i !== index)
-      return { filteredTasks: filteredData }
+    this.setState(state => {
+      let filteredData = state.tasks.filter((x, i) => i !== index)
+      return { tasks: filteredData }
     })
   }
   ///THREE THINGS WHEN ADDING NEW NOTE - clear fields - reset state 
   render() {
-    const { filteredTasks } = this.state;
+    const { tasks, searchTerm } = this.state;
+    const filteredTasks = tasks.filter(x => x.title.toLowerCase().includes(searchTerm))
     return (
       <div className="App" >
         <h1> {name} Todo List</h1>
