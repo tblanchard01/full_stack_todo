@@ -56,7 +56,7 @@ class App extends React.Component {
     const filteredTasks = tasks.filter(x => x.title.toLowerCase().includes(searchTerm))
     return (
       <div className="App" >
-        <h1> {name} Todo List</h1>
+        <h1> {name} Todo Items</h1>
         <div className="outer-container">
           <input type="text" className="input" placeholder="Search..." onChange={this.handleSearchTerm} />
           {filteredTasks.map((task, index) => {
