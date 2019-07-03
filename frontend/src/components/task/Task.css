@@ -2,4 +2,24 @@
     background-color:  lightblue; 
     padding: 20px; 
     margin: 5px; 
+    margin-left: 20px;
+    margin-right: 20px;  
+    z-index: 0;
+}
+.task-text{
+    margin-right: 20px;
+    margin-left: -20px;  
+}
+.delete-button{
+   border-radius: 2px; 
+   padding: 4px; 
+   margin-left: 20px;
+   margin-right: 10%; 
+   float: left;
+   color: beige; 
+   font-size: 1em;
+}
+.delete-button:hover{
+    border: 0.5px solid white; 
+    cursor: grab; 
 }

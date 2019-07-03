@@ -5,7 +5,7 @@ class Task extends React.Component {
         const { title, dueDate } = this.props;
         return (
             <div className="task-default">
-                {title} by {dueDate}
+                <span className='task-text'> {title} by {dueDate}</span> <span className='delete-button'>x</span>
             </div>
         )
     }
