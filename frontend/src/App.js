@@ -17,8 +17,7 @@ class App extends React.Component {
     this.handleNewTaskTitle = this.handleNewTaskTitle.bind(this);
     this.handleNewTaskDate = this.handleNewTaskDate.bind(this);
     this.handleNewTaskAdd = this.handleNewTaskAdd.bind(this);
-
-
+    this.handleDeleteTask = this.handleDeleteTask.bind(this);
   }
   componentDidMount() {
     fetch('http://localhost:8000/tasks')
@@ -26,7 +25,6 @@ class App extends React.Component {
       .then(data => this.setState({ tasks: data, filteredTasks: data }))
   }
   handleSearchTerm(e) {
-    // let filteredData = [...this.state.tasks];
     let searchTerm = e.target.value.toLowerCase()
     this.setState(prevState => {
       if (searchTerm) {
@@ -37,7 +35,6 @@ class App extends React.Component {
       }
     });
   }
-
   handleNewTaskTitle(e) {
     let newNoteTitle = e.target.value
     this.setState(prevState => {
@@ -46,7 +43,6 @@ class App extends React.Component {
       }
     });
   }
-
   handleNewTaskDate(e) {
     let newNoteDate = e.target.value
     this.setState(prevState => {
@@ -55,7 +51,6 @@ class App extends React.Component {
       }
     });
   }
-
   handleNewTaskAdd() {
     this.setState(prevState => {
       if (prevState.newNoteTitle && prevState.newNoteDate) {
@@ -65,12 +60,13 @@ class App extends React.Component {
       }
     })
   }
-
-
+  handleDeleteTask(index) {
+    this.setState(prevState => {
+      let filteredData = prevState.filteredTasks.filter((x, i) => i !== index)
+      return { filteredTasks: filteredData }
+    })
+  }
   ///THREE THINGS WHEN ADDING NEW NOTE - clear fields - reset state 
-
-
-
   render() {
     const { filteredTasks } = this.state;
     return (
@@ -78,11 +74,12 @@ class App extends React.Component {
         <h1> {name} Todo List</h1>
         <div className="outer-container">
           <input type="text" className="input" placeholder="Search..." onChange={this.handleSearchTerm} />
-          {filteredTasks.map((task, key) => {
-            return <Task title={task.title} dueDate={task.dueDate} key={key} />
+          {filteredTasks.map((task, index) => {
+            return <Task title={task.title} dueDate={task.dueDate} key={index} deleteTask={() => this.handleDeleteTask(index)} />
           })}
           <input type="text" className="input" placeholder="Note Title..." onChange={this.handleNewTaskTitle} />
-          <input type="text" className="input" placeholder="Due Date..." onChange={this.handleNewTaskDate} /> <span className="new-task-button" onClick={this.handleNewTaskAdd}>add new task</span>
+          <input type="text" className="input" placeholder="Due Date..." onChange={this.handleNewTaskDate} />
+          <button disabled={!this.state.newNoteTitle || !this.state.newNoteDate} className="new-task-button" onClick={this.handleNewTaskAdd}>add new task</button>
         </div>
       </div >
     );
