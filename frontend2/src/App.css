@@ -1,0 +1,20 @@
+.App {
+  text-align: center
+
+}
+.outer-container{
+  width: 60%; 
+  height: 90%;
+  background-color: beige; 
+  border: 0.5px solid lightgray;  
+  min-width: 800px;
+  min-height: 600px;
+  padding-top: 5px;
+  padding-bottom: 5px; 
+  margin: auto;  
+}
+
+.new-task-button{
+  padding:2px; 
+  background-color: lightgray; 
+}
