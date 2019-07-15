@@ -36,7 +36,7 @@ var data = [
     }
 ]
 
-var appRouter = function (app) {
+var appRouter = function (app,db) {
     app.get("/", function (req, res) {
         res.status(200).send("Welcome to our restful API");
     });
