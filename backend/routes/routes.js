@@ -35,13 +35,18 @@ var data = [
         "priority": 5
     }
 ]
-
-var appRouter = function (app,db) {
+var appRouter = function (app, db) {
     app.get("/", function (req, res) {
         res.status(200).send("Welcome to our restful API");
     });
     app.get("/tasks", function (req, res) {
         res.status(200).send(data);
     });
-}
+    app.post('/notes', (req, res) => {
+        var task = {task: req.body.task, title: req.body.dueDate};
+        db.collection('tasks').insert(task, (err, res) => {
+            err ? res.send('error') : res.send('added');
+        })
+    })
+};
 module.exports = appRouter;
