@@ -42,11 +42,19 @@ var appRouter = function (app, db) {
     app.get("/tasks", function (req, res) {
         res.status(200).send(data);
     });
-    app.post('/notes', (req, res) => {
+    app.post('/tasks', (req, res) => {
         var task = {task: req.body.task, title: req.body.dueDate};
-        db.collection('tasks').insert(task, (err, res) => {
+        res.status(200).send(task);
+    
+         db.collection('tasks').insert(task, (err, res) => {
             err ? res.send('error') : res.send('added');
         })
     })
 };
-module.exports = appRouter;
+
+var helloTim = function(){
+    console.log('tim');
+}
+
+module.exports = {appRouter, helloTim}; 
+
